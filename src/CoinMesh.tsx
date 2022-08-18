@@ -2,7 +2,7 @@ import React, { useRef } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 //import {OrbitControls} from '@react-three/drei';
 function CoinMesh() {
-  const mesh: any = useRef(null);
+  const mesh = useRef<THREE.Mesh>(null!);
   useFrame(() => (mesh.current.rotation.y = mesh.current.rotation.z += 0.1));
   return (
     <mesh ref={mesh} scale={1}>
