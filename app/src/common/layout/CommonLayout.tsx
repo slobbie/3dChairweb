@@ -1,26 +1,27 @@
 // =============================================================================
-// File    :  MainPage.tsx
+// File    :  CommonLayout.tsx
 // Class   :
-// Purpose :  MainPage
+// Purpose :  CommonLayout
 // Date    :  2024.03
 // Author  :  JHS
 // History :
 // =============================================================================
 // Copyright (C) 2024 JHS All rights reserved.
 // =============================================================================
+import Header from '../components/header/Header';
 
 /**
- *
- * @param
- * @property { string } propsName 설명
+ * 공통 레이아웃 컴포넌트
  * @returns React.JSX.Element
  */
-const MainPage = () => {
+const CommonLayout = () => {
   return (
-    <div
-      style={{ backgroundColor: 'tomato', width: '100%', height: '100vh' }}
-    ></div>
+    <>
+      <Header />
+
+      {/* </section> */}
+    </>
   );
 };
 
-export default MainPage;
+export default CommonLayout;
