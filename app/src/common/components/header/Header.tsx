@@ -21,7 +21,7 @@ const Header = () => {
         <div className='logo'>CHAIR.</div>
         <nav>
           <ul>
-            <li>
+            {/* <li>
               <a href='/'>discover</a>
             </li>
             <li>
@@ -32,7 +32,7 @@ const Header = () => {
             </li>
             <li>
               <a href='/'>reach</a>
-            </li>
+            </li> */}
             <li className='btn'>
               <a href='/'>order</a>
             </li>

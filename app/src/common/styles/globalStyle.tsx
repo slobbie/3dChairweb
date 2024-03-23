@@ -116,6 +116,7 @@ const resetStyle = css`
   }
   body {
     line-height: 1;
+    transition: background-color 0.5s ease;
   }
   ol,
   ul {

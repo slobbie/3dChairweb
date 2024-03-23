@@ -2,7 +2,8 @@ import { css } from '@emotion/react';
 
 export const headerStyle = () => {
   return css`
-    position: absolute;
+    /* position: absolute; */
+    position: fixed;
     z-index: 1000;
     width: calc(100% - 120px);
     height: calc(60px - 60px);

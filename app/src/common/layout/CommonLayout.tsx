@@ -15,13 +15,7 @@ import Header from '../components/header/Header';
  * @returns React.JSX.Element
  */
 const CommonLayout = () => {
-  return (
-    <>
-      <Header />
-
-      {/* </section> */}
-    </>
-  );
+  return <Header />;
 };
 
 export default CommonLayout;

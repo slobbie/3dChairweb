@@ -10,10 +10,12 @@
 // =============================================================================
 /** @jsxImportSource @emotion/react */
 
-// import * as mainPageStyle from '@feature/main/styles/mainPage.style';
-import { Canvas } from 'react-three-fiber';
-import { Html, RoundedBox } from 'drei';
 import Header from '@src/common/components/header/Header';
+import CanvasHtmlContent from '@src/common/components/canvasHtmlContent/CanvasHtmlContent';
+import SofaBedModel from '@feature/components/model/SofaBed';
+import DylanArmchairModel from '@feature/components/model/DylanArmchair';
+import RockingChairModel from '@feature/components/model/RockingChair';
+import LargeChair from '@feature/components/model/LargeChair';
 
 /**
  * 메인페이지
@@ -23,24 +25,54 @@ const MainPage = () => {
   return (
     <>
       <Header />
-      <Canvas
-        style={{ height: '100vh', backgroundColor: 'tomato', zIndex: 100 }}
-        legacy
-        camera={{ position: [0, 0, 10], fov: 70 }}
+      <CanvasHtmlContent
+        title='Rocking Chair'
+        positionY={-1.7}
+        rotation={{
+          x: 0.3,
+          y: 0,
+          z: 0,
+        }}
+        bgColor='tomato'
       >
-        <Html fullscreen>
-          {/* <div
-            css={mainPageStyle.container}
-            style={{
-              width: '100%',
-              height: '100vh',
-              backgroundColor: 'tomato',
-            }}
-          >
-            <h1 css={mainPageStyle.title}>안녕</h1>
-          </div> */}
-        </Html>
-      </Canvas>
+        <RockingChairModel scale={0.05} />
+      </CanvasHtmlContent>
+      <CanvasHtmlContent
+        title='Dylan Armchair'
+        positionY={-1.6}
+        rotation={{
+          x: 0.2,
+          y: 0,
+          z: 0,
+        }}
+        bgColor='#571ec1'
+      >
+        <DylanArmchairModel scale={0.05} />
+      </CanvasHtmlContent>
+      <CanvasHtmlContent
+        title='Ottoman Chair'
+        positionY={-1.6}
+        rotation={{
+          x: 0.2,
+          y: 0,
+          z: 0,
+        }}
+        bgColor='#636567'
+      >
+        <LargeChair scale={0.05} />
+      </CanvasHtmlContent>
+      <CanvasHtmlContent
+        title='Sofa Bed'
+        positionY={-1.6}
+        rotation={{
+          x: 0.2,
+          y: 0,
+          z: 0,
+        }}
+        bgColor='green'
+      >
+        <SofaBedModel scale={0.05} />
+      </CanvasHtmlContent>
     </>
   );
 };
