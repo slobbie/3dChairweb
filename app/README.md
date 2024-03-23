@@ -1,30 +1,29 @@
-# React + TypeScript + Vite
+## 3dchairweb
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+[배포 링크](https://slobbie.github.io/3dchairweb/)
 
-Currently, two official plugins are available:
+## 사용 기술
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+`Typescript` `React` `emotion` `recoil` `framer-motion` `three` `react-three/drei` `react-three-fiber` `gh-pages`
 
-## Expanding the ESLint configuration
+## 주요 기능
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+1. react-three를 이용하여 3d gltf 파일 web 랜더링
+2. 랜더링된 3d gltf 컴포넌트 제어
+3. framer-motion 을 이용한 애니메이션 구현
 
-- Configure the top-level `parserOptions` property like this:
+---
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
+### Getting Started
+
+1. `yarn` 패키지 다운로드 ,
+
+```
+$ yarn
 ```
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+2. `dev` 프로젝트 시작,
+
+```
+$ yarn dev
+```
