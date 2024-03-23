@@ -19,11 +19,15 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
+    "jsxImportSource": "@emotion/react",
     "baseUrl": ".",
     "paths": {
       "@src/*": ["src/*"],
+      "@assets/*": ["src/assets/*"],
       "@router/*": ["src/router/*"],
       "@common/*": ["src/common/*"],
+      "@hooks/*": ["src/hooks/*"],
+      "@atom/*": ["src/atom/*"],
       "@constants/*": ["src/common/constants/*"],
       "@feature/*": ["src/feature/*"]
     }

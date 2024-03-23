@@ -1,10 +1,19 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
+import { createRoot } from 'react-dom/client';
 import { RouterProvider } from 'react-router-dom';
 import { router } from '@router/indexRouter';
+import GlobalStyle from '@common/styles/globalStyle';
+import { RecoilRoot } from 'recoil';
+import { ThemeProvider } from '@emotion/react';
+import { theme } from '@common/styles/theme';
 
-ReactDOM.createRoot(document.getElementById('root')!).render(
-  <React.StrictMode>
-    <RouterProvider router={router} />
-  </React.StrictMode>
+const container = document.getElementById('root')!;
+const root = createRoot(container!);
+
+root.render(
+  <ThemeProvider theme={theme}>
+    <RecoilRoot>
+      <GlobalStyle />
+      <RouterProvider router={router} />
+    </RecoilRoot>
+  </ThemeProvider>
 );
