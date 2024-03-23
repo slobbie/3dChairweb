@@ -10,6 +10,8 @@
 // =============================================================================
 
 import { useGLTF } from '@react-three/drei';
+import useModelData from '@src/feature/main/hooks/useModelData';
+import { useMemo } from 'react';
 import * as THREE from 'three';
 import { GLTF } from 'three-stdlib';
 
@@ -40,6 +42,15 @@ const SofaBedModel = (props: JSX.IntrinsicElements['group']) => {
   const { nodes, materials } = useGLTF(
     '/sofaBed.gltf'
   ) as TSofaBedModelGLTFResult;
+
+  /** 현재 선택된 3d 모델  데이터 */
+  const currentModelData = useModelData();
+
+  /** 현재 선택된 색상 */
+  const currentColor = useMemo(() => {
+    return currentModelData ? currentModelData.color : 'black';
+  }, [currentModelData]);
+
   return (
     <group {...props} dispose={null}>
       <mesh
@@ -52,7 +63,7 @@ const SofaBedModel = (props: JSX.IntrinsicElements['group']) => {
         material={materials.FABRIC}
         rotation={[-Math.PI / 2, 0, 0]}
       >
-        <meshPhysicalMaterial color='blue' />
+        <meshPhysicalMaterial color={currentColor} />
       </mesh>
       <mesh
         geometry={nodes.FABRIC_BLACK001_FABRIC_BLACK_0.geometry}

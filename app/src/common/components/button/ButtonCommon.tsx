@@ -10,26 +10,19 @@
 // =============================================================================
 
 import * as buttonStyle from '@common/components/button/styles/buttonCommon';
+import { MotionProps, motion } from 'framer-motion';
 
-import React, {
-  ButtonHTMLAttributes,
-  DetailedHTMLProps,
-  Ref,
-  forwardRef,
-} from 'react';
+import React, { ButtonHTMLAttributes, Ref, forwardRef, useMemo } from 'react';
 
 export type buttonSize = 'S' | 'M' | 'L';
 export type Variant = 'primaryStyle' | 'outlineStyle';
 
 export interface IButtonProps
   extends Omit<
-    DetailedHTMLProps<
       ButtonHTMLAttributes<HTMLButtonElement>,
-      // ButtonHTMLAttributes<HTMLButtonElement>
-      HTMLButtonElement
+      'onAnimationStart' | 'onDrag' | 'onDragEnd' | 'onDragStart' | 'style'
     >,
-    'type'
-  > {
+    MotionProps {
   /**
    * 정의된 버튼 사이즈
    */
@@ -55,15 +48,26 @@ const ButtonCommon = forwardRef(function ButtonCommon(
 ) {
   const { size = 'M', htmlType, children, ...rest } = props;
 
+  /** 버튼 호버 스타일 */
+  const hoverStyle = useMemo(() => ({ scale: 1.05 }), []);
+
+  /** 버튼 트랜지션 스타일 */
+  const transitionStyle = useMemo(
+    () => ({ type: 'spring', stiffness: 400, damping: 10 }),
+    []
+  );
+
   return (
-    <button
+    <motion.button
       css={buttonStyle.buttonCommonStyle(size)}
       ref={forwardRef}
       type={htmlType}
+      whileHover={hoverStyle}
+      transition={transitionStyle}
       {...rest}
     >
       {children}
-    </button>
+    </motion.button>
   );
 });
 

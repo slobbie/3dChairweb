@@ -11,17 +11,26 @@
 
 import * as THREE from 'three';
 import * as mainPageStyle from '@feature/main/styles/mainPage.style';
-import * as Style from '@common/components/canvasHtmlContent/canvasHtmlContent.style';
+import * as Style from '@src/feature/main/components/canvasHtmlContent/canvasHtmlContent.style';
 import { Canvas } from '@react-three/fiber';
-import { Suspense, useEffect, useRef } from 'react';
-import { OrbitControls } from '@react-three/drei';
+import { Suspense, useCallback, useEffect, useRef } from 'react';
 import { useInView } from 'react-intersection-observer';
 import ButtonCommon from '@common/components/button/ButtonCommon';
+import Space from '@common/components/space/Space';
+import {
+  currentModelKey,
+  isModelControlBox,
+} from '@src/atom/common/3dModelAtom';
+import { useSetRecoilState } from 'recoil';
+import useCamelCase from '@src/hooks/useCamelCase';
+import useBodyScroll from '@src/hooks/useBodyScroll';
 
 interface ICanvasHtmlContent {
   title: string;
   bgColor: string;
   positionY: number;
+  isPaly: boolean;
+  playRest: boolean;
   rotation: {
     x: number;
     y: number;
@@ -40,20 +49,52 @@ const CanvasHtmlContent = ({
   bgColor,
   rotation,
   positionY,
+  isPaly,
+  playRest,
   children,
 }: ICanvasHtmlContent) => {
   const selectedMesh = useRef<THREE.Mesh | null>(null);
+  /** modelControlBox 상태 */
+  const setShowModelControlBox = useSetRecoilState(isModelControlBox);
+  /** 문자열 카멜케이스로 변환 */
+  const camelCase = useCamelCase;
+  /** modelControlBox 상태 */
+  const setCurrentModel = useSetRecoilState(currentModelKey);
+  const requestRef = useRef<number>(0);
 
-  // const animate = useCallback(() => {
-  //   requestAnimationFrame(animate);
-  //   if (selectedMesh.current) {
-  //     selectedMesh.current.rotation.y += 0.01;
-  //   }
-  // }, []);
+  const scrollController = useBodyScroll();
 
-  // useEffect(() => {
-  //   animate();
-  // }, [animate]);
+  /** 3d 모델 컨트롤 박스 호출 함수 */
+  const showModelControlBox = (pTitle: string) => {
+    setShowModelControlBox((prev) => !prev);
+    camelCase(pTitle);
+    setCurrentModel(camelCase(pTitle));
+    scrollController.lockScroll(bgColor);
+  };
+
+  /** 3d 모델 회전 애니메이션 함수 */
+  const animate = useCallback(() => {
+    requestRef.current = requestAnimationFrame(animate);
+    if (selectedMesh.current) {
+      selectedMesh.current.rotation.y += 0.01;
+    }
+  }, []);
+
+  // 3d 모델 회전 이펙트
+  useEffect(() => {
+    if (isPaly) {
+      animate();
+    } else {
+      cancelAnimationFrame(requestRef.current);
+    }
+  }, [animate, isPaly]);
+
+  // 3d 모델 포지션 리셋 이펙트
+  useEffect(() => {
+    if (playRest && selectedMesh.current) {
+      selectedMesh.current.rotation.y = 0;
+    }
+  }, [playRest]);
 
   const [refItem, inView] = useInView({
     threshold: 0,
@@ -73,7 +114,6 @@ const CanvasHtmlContent = ({
     >
       <Suspense fallback={null}>
         <Canvas legacy camera={{ position: [0, 0, 11], fov: 70 }}>
-          <OrbitControls />
           <directionalLight intensity={10} />
           <ambientLight intensity={0.3} />
           <directionalLight position={[10, 10, 5]} intensity={1} />
@@ -106,7 +146,10 @@ const CanvasHtmlContent = ({
         <h1 ref={refItem} css={mainPageStyle.title}>
           {title}
         </h1>
-        <ButtonCommon size='M'>Custom</ButtonCommon>
+        <Space bottom={50} />
+        <ButtonCommon onClick={() => showModelControlBox(title)} size='M'>
+          View
+        </ButtonCommon>
       </div>
     </div>
   );

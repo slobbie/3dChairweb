@@ -10,6 +10,8 @@
 // =============================================================================
 
 import { useGLTF } from '@react-three/drei';
+import useModelData from '@src/feature/main/hooks/useModelData';
+import { useMemo } from 'react';
 import * as THREE from 'three';
 import { GLTF } from 'three-stdlib';
 
@@ -35,6 +37,15 @@ const LargeChair = (props: JSX.IntrinsicElements['group']) => {
   const { nodes, materials } = useGLTF(
     '/largeChair.gltf'
   ) as TLargeChairGLTFResult;
+
+  /** 현재 선택된 3d 모델  데이터 */
+  const currentModelData = useModelData();
+
+  /** 현재 선택된 색상 */
+  const currentColor = useMemo(() => {
+    return currentModelData ? currentModelData.color : 'green';
+  }, [currentModelData]);
+
   return (
     <group {...props} dispose={null}>
       <group position={[0, 6.386, 0]} rotation={[-Math.PI / 2, 0, 0]}>
@@ -42,7 +53,7 @@ const LargeChair = (props: JSX.IntrinsicElements['group']) => {
           geometry={nodes.Branagh_Large_Ottoman_PearlGrey_FABRIC_0.geometry}
           material={materials.FABRIC}
         >
-          <meshPhysicalMaterial color='blue' />
+          <meshPhysicalMaterial color={currentColor} />
         </mesh>
         <mesh
           geometry={nodes.Branagh_Large_Ottoman_PearlGrey_PLASTIC_0.geometry}

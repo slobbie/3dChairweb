@@ -10,6 +10,8 @@
 // =============================================================================
 
 import { useGLTF } from '@react-three/drei';
+import useModelData from '@src/feature/main/hooks/useModelData';
+import { useMemo } from 'react';
 import * as THREE from 'three';
 import { GLTF } from 'three-stdlib';
 
@@ -36,6 +38,14 @@ const DylanArmchairModel = (props: JSX.IntrinsicElements['group']) => {
     '/dylanArmchair.gltf'
   ) as DylanArmchairGLTFResult;
 
+  /** 현재 선택된 3d 모델  데이터 */
+  const currentModelData = useModelData();
+
+  /** 현재 선택된 색상 */
+  const currentColor = useMemo(() => {
+    return currentModelData ? currentModelData.color : 'red';
+  }, [currentModelData]);
+
   return (
     <group {...props} dispose={null}>
       <group position={[0, 0.477, 0]} rotation={[-Math.PI / 2, 0, 0]}>
@@ -47,7 +57,7 @@ const DylanArmchairModel = (props: JSX.IntrinsicElements['group']) => {
           geometry={nodes.Dylan_Armchair_FABRIC_0.geometry}
           material={materials.FABRIC}
         >
-          <meshPhysicalMaterial color='blue' />
+          <meshPhysicalMaterial color={currentColor} />
         </mesh>
       </group>
       <mesh

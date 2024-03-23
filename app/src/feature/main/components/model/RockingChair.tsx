@@ -10,6 +10,8 @@
 // =============================================================================
 
 import { useGLTF } from '@react-three/drei';
+import useModelData from '@src/feature/main/hooks/useModelData';
+import { useMemo } from 'react';
 import * as THREE from 'three';
 import { GLTF } from 'three-stdlib';
 
@@ -35,6 +37,15 @@ const RockingChairModel = (props: JSX.IntrinsicElements['group']) => {
   const { nodes, materials } = useGLTF(
     '/rockingChair.gltf'
   ) as TRockingChairModelGLTFResult;
+
+  /** 현재 선택된 3d 모델  데이터 */
+  const currentModelData = useModelData();
+
+  /** 현재 선택된 색상 */
+  const currentColor = useMemo(() => {
+    return currentModelData ? currentModelData.color : 'blue';
+  }, [currentModelData]);
+
   return (
     <group {...props} dispose={null}>
       <group rotation={[-Math.PI / 2, 0, 0]}>
@@ -44,7 +55,7 @@ const RockingChairModel = (props: JSX.IntrinsicElements['group']) => {
               geometry={nodes.Kolton_Rocking_Chair_FABRIC_0.geometry}
               material={materials.FABRIC}
             >
-              <meshPhysicalMaterial color='blue' />
+              <meshPhysicalMaterial color={currentColor} />
             </mesh>
             <mesh
               geometry={nodes.Kolton_Rocking_Chair_WOOD_0.geometry}

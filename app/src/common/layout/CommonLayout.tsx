@@ -10,12 +10,21 @@
 // =============================================================================
 import Header from '../components/header/Header';
 
+interface ICommonLayout {
+  children: React.ReactNode;
+}
+
 /**
  * 공통 레이아웃 컴포넌트
  * @returns React.JSX.Element
  */
-const CommonLayout = () => {
-  return <Header />;
+const CommonLayout = ({ children }: ICommonLayout) => {
+  return (
+    <section>
+      <Header />
+      {children}
+    </section>
+  );
 };
 
 export default CommonLayout;
